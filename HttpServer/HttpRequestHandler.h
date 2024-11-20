@@ -5,7 +5,7 @@ class HttpRequestHandler
 {
 public:
 	virtual std::string ContentGet(const std::string& Path) = 0;
-	virtual  std::string ContentPost(const std::string& Path) = 0;
+	virtual  std::string ContentPost(const std::string& Path, const std::string& Body) = 0;
 
 private:
 

@@ -10,7 +10,7 @@ public:
 
 	void StartServer();
 	std::string ContentGet(const std::string& Path) override;
-	std::string ContentPost(const std::string& Path) override;
+	std::string ContentPost(const std::string& Path, const std::string& Body) override;
 private:
 	std::string Host;
 	int Port;

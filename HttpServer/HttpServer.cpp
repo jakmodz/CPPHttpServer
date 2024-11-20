@@ -6,7 +6,7 @@
 #include <thread>
 #include <cstdlib>
 #include "RequestParser.h"
-const int BUFFER_SIZE = 4096;
+const int BUFFER_SIZE = 1024*1024;
 HttpServer::HttpServer(const std::string& Host, int Port):Host(Host),Port(Port),Socket(),WsaData(),ClientSocket()
 {
 	SocketAddr.sin_family = AF_INET;
@@ -56,14 +56,16 @@ std::string HttpServer::ContentGet(const std::string& Path)
 	return content;
 }
 
-std::string HttpServer::ContentPost(const std::string& Path)
+std::string HttpServer::ContentPost(const std::string& Path, const std::string& Body)
 {
-	if (Path == "Random")
+	if (Path == "/Random")
 	{
 		return std::to_string(rand() % 10000);
 	}
 	return std::string();
 }
+
+
 
 std::string HttpServer::GetResponse(const std::string& Request)
 {
@@ -93,7 +95,7 @@ std::string HttpServer::GetResponse(const std::string& Request)
 	}
 	else if (Method == "POST")
 	{
-		std::string content = ContentPost(Path);
+		std::string content = ContentPost(Path,Request);
 		response << "HTTP/1.1 200 OK\r\n"
 			<< "\r\n"
 			<< content;
